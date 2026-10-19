@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HireSay — Good opportunities travel by word of mouth.</title>
+  <link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="HireSay home"><span class="brand-icon">h<span>↗</span></span>HireSay<span class="brand-dot">.</span></a>
+    <div class="workspace"><span class="avatar">YOU</span><div>Your next chapter<small>Personal workspace</small></div><span class="live-dot"></span></div>
+    <p class="eyebrow">YOUR RADAR</p>
+    <nav aria-label="Post views">
+      <button class="nav-item active" data-view="new"><span>◉ &nbsp; Discover</span><b id="count-new">0</b></button>
+      <button class="nav-item" data-view="interested"><span>♡ &nbsp; Interested</span><b id="count-interested">0</b></button>
+      <button class="nav-item" data-view="contacted"><span>↗ &nbsp; Contacted</span><b id="count-contacted">0</b></button>
+      <button class="nav-item" data-view="skipped"><span>− &nbsp; Skipped</span><b id="count-skipped">0</b></button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav-item" id="settings-open">⚙ &nbsp; Sources & settings</button>
+      <button class="nav-item" id="history-open">◷ &nbsp; Scan history</button>
+      <div class="local-card"><span class="live-dot"></span><strong>Home, sweet localhost.</strong><p>Your data stays on this computer.<br>No AI subscription. No auto-outreach.</p></div>
+      <span class="version">HIRESAY / EARLY BUILD 0.1</span>
+    </div>
+  </aside>
+  <main>
+    <header class="topbar"><span>Small world. Big possibilities.</span><div><span class="local-badge">● Local only</span><button class="text-button" id="demo-toggle">Explore demo</button></div></header>
+    <div class="content">
+      <div id="demo-banner" class="banner" hidden>Demo workspace — these three fictional examples show how matches will look. Nothing here is a real hiring lead.</div>
+      <section class="page-heading"><div><p class="eyebrow">LESS SCROLLING. MORE CONVERSATIONS.</p><h1 id="page-title">A little bird told us.</h1><p class="subtitle" id="page-subtitle">Fresh hiring signals. A human on the other end.</p></div><button class="button primary" id="scan-button">↻ &nbsp; Scan LinkedIn</button></section>
+      <section class="summary-grid" aria-label="Workspace summary">
+        <div class="summary-card"><span>ON YOUR RADAR</span><strong id="metric-matches">0</strong><small>Saved hiring-post matches</small></div>
+        <div class="summary-card"><span>DIRECT INVITATIONS</span><strong id="metric-invites">0</strong><small>Posts inviting a conversation</small></div>
+        <div class="summary-card"><span>FIRST-DEGREE AUTHORS</span><strong id="metric-connections">—</strong><small id="connections-caption">Optional connection CSV import</small></div>
+      </section>
+      <section class="scan-status" aria-label="Collector status"><span class="status-orb" id="status-orb">↗</span><div><strong id="status-title">Your next opportunity starts with a hello.</strong><p id="status-message">Connect LinkedIn to start collecting.</p><small id="schedule-caption">Daily scans are off.</small></div><div class="status-actions"><button class="button secondary" id="connect-button">Connect LinkedIn</button><button class="button secondary" id="cancel-button" hidden>Stop scan</button></div></section>
+      <div class="results-heading"><h2 id="results-title">Your discoveries <span id="visible-count">0</span></h2><div class="filters"><label class="sr-only" for="search">Search saved matches</label><input type="search" id="search" placeholder="Search people or posts…"><label class="sr-only" for="window">Lookback</label><select id="window"><option value="24">Last 24 hours</option><option value="72">Last 3 days</option><option value="168">Last 7 days</option><option value="720">Last 30 days</option><option value="all">All saved</option></select></div></div>
+      <div class="filter-note"><label><input type="checkbox" id="unknown" checked> Include posts whose dates need checking</label><span>Sorted by match signals, then date</span></div>
+      <div id="results" aria-live="polite"></div>
+      <div class="empty-state" id="empty-state"><span class="empty-icon">↗</span><p class="eyebrow">GOOD THINGS ARE ONE HELLO AWAY</p><h2>Let's find your people.</h2><p>Connect LinkedIn, then scan your feed for recent hiring posts.<br>Add a few people to your watchlist to check their activity too.</p><button class="button primary" id="empty-connect">Connect LinkedIn →</button><small>No password sharing. Sign in directly in the browser that opens.</small></div>
+      <footer><span>Made for conversations worth having.</span><span>Visible posts only · Coverage is always partial</span></footer>
+    </div>
+  </main>
+  <dialog id="settings-dialog"><form id="settings-form"><div class="dialog-heading"><div><p class="eyebrow">TUNE YOUR RADAR</p><h2>Sources & settings</h2></div><button type="button" class="close" data-close="settings-dialog" aria-label="Close">×</button></div>
+    <label>People to keep an eye on<textarea id="watchlist" rows="4" placeholder="https://www.linkedin.com/in/someone&#10;One profile URL per line"></textarea></label><p class="hint">Start with 5–10 relevant people. Scans check your feed and these profiles' public activity. A large watchlist splits the available scan time.</p>
+    <div class="form-row"><label>Default lookback (hours)<input id="lookback-hours" type="number" min="1" max="720" required></label><label>Runtime budget (minutes)<input id="scan-minutes" type="number" min="1" max="60" required></label></div><p class="hint">No post-count limit. The runtime budget limits how far a scan gets; it never means all posts were covered.</p>
+    <label>Role keywords<input id="role-keywords" required></label><p class="hint">Comma-separated. A post must mention a role keyword and hiring intent. U.S. locations and small-team signals boost ranking; they are not verified facts about eligibility.</p>
+    <div class="divider"></div><label class="check-label"><input type="checkbox" id="schedule-enabled"> Scan once a day</label><div class="form-row"><label>Local time<input id="schedule-time" type="time" required></label><label>Timezone<input id="timezone" placeholder="America/New_York" required></label></div><p class="hint">Keep HireSay running and your computer awake. If you open it after the scheduled time, it attempts today's scan then. Failed scans can be retried manually.</p>
+    <div class="divider"></div><label>Your introduction<textarea id="intro" rows="3"></textarea></label><p class="hint">Used only when you choose “Draft intro.” Templates are editable and never sent automatically.</p>
+    <label class="upload-label">First-degree connections (optional)<input type="file" id="connections-file" accept=".csv,text/csv"></label><p class="hint" id="import-message">Import LinkedIn's Connections.csv to label known first-degree authors. This does not give access to their connections or their home feeds.</p>
+    <div class="dialog-footer"><button type="button" class="button secondary" data-close="settings-dialog">Cancel</button><button class="button primary" type="submit">Save settings</button></div>
+  </form></dialog>
+  <dialog id="history-dialog"><div class="dialog-heading"><div><p class="eyebrow">WHAT WE ACTUALLY SAW</p><h2>Scan history</h2></div><button class="close" data-close="history-dialog" aria-label="Close">×</button></div><div id="history-list"></div></dialog>
+  <dialog id="draft-dialog"><div class="dialog-heading"><div><p class="eyebrow">YOUR WORDS. YOUR CALL.</p><h2>A starting point for hello.</h2></div><button class="close" data-close="draft-dialog" aria-label="Close">×</button></div><p class="hint">A free, rule-based template using your intro and this post. Check the role and company, add a specific detail, then send it yourself.</p><label class="sr-only" for="draft-text">Editable introduction</label><textarea id="draft-text" rows="9"></textarea><p class="hint" id="draft-context"></p><div class="dialog-footer"><button class="button secondary" data-close="draft-dialog">Close</button><button class="button primary" id="copy-draft">Copy draft</button></div></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

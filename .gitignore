@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.sqlite3*
+browser-profile/
+
+# Local credentials, exports, and runtime data must never be shared.
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+*.csv
+*cookies*.json
+*storage_state*.json
+data/
+runtime/
+*.log
+*.zip
+.pytest_cache/
